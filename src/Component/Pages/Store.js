@@ -1,10 +1,13 @@
 import React from 'react'
+import UpdateProfile from '../Store/UpdateProfile'
 
 
 const Store = () => {
   return (
       <div>
-        <h2>Welcome to Expense Tracker</h2>
+          <div >
+              <UpdateProfile ></UpdateProfile>
+        </div>
     </div>
   )
 }
