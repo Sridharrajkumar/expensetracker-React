@@ -26,9 +26,9 @@ const ENav = () => {
             <Nav.Link as={NavLink} to='/about'><h5>About</h5></Nav.Link>
             <Nav.Link as={NavLink} to='/'><h5>Contact</h5></Nav.Link>
           </Nav>
-          <div>
+          <div className='d-flex gap-2'>
             {!AuthCxt.islogged ? <Button as={NavLink} to='/Login'>LogIn</Button>:<Button onClick={LogOutHandler}>LogOut</Button>}
-            
+            {AuthCxt.islogged && <Button as={NavLink} to='/verification'>verification</Button>}
           </div>
        </Container>
       </Navbar>

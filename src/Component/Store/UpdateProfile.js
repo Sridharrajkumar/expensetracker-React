@@ -42,12 +42,10 @@ const UpdateProfile = () => {
         const data = await response.json();
         nameRef.current.value = data.users[0].displayName;
         photoRef.current.value = data.users[0].photoUrl;
-        
     }
 
     useEffect(() => {
         Fetchfun();
-        
     },[])
   return (
     <>
