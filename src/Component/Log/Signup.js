@@ -95,7 +95,7 @@ const Signup = () => {
             <h6 style={{ color: 'black' }}>{err}</h6>
             <div className='d-flex flex-column justify-content-center align-items-center'>
               <button className="btn btn-primary">Submit</button>
-              {isLogged && <a className='text-danger text-decoration-none' href='/'>Forget Password</a>}
+              {isLogged && <a className='text-danger text-decoration-none' href='/forgotpass'>Forget Password</a>}
             </div>
           </form>
           </Card.Body>

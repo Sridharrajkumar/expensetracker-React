@@ -32,8 +32,8 @@ const AuthContextProvider = (props) => {
         setToken(null);
         localStorage.removeItem("expenseToken");  //remove the item from storage
         localStorage.removeItem("logInTime");
-
         
+
     }
 
     const checkLogIn = () => {

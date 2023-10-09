@@ -10,6 +10,7 @@ import UpdateProfile from './Component/Store/UpdateProfile';
 import { useContext } from 'react';
 import { AuthContext } from './ContxtStore/AuthContext';
 import VerificationEmail from './Component/Store/VerificationEmail';
+import ForgetPassword from './Component/Log/ForgetPassword';
 
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
         <Route path='/Login' element={<Signup />} />
         {authcxt.islogged && <Route exact path="/store" element={<Store />} />}
         {authcxt.islogged && <Route path="/updateprofile" element={<UpdateProfile />} />}
-        {authcxt.islogged && <Route exact path="/verification" element={<VerificationEmail/>} />}
+        {authcxt.islogged && <Route exact path="/verification" element={<VerificationEmail />} />}
+        <Route path="/forgotpass" element={<ForgetPassword />} />
         <Route path='*' element={<Signup />} />
       </Routes>
    </div>
