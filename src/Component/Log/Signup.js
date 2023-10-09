@@ -1,9 +1,10 @@
 
 
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap/esm';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../ContxtStore/AuthContext';
 
 
 
@@ -14,6 +15,7 @@ const Signup = () => {
   const [err, seterr] = useState('');
   const [isLogged, setIsLoggedIn] = useState(true);
   const navigator = useNavigate();
+  const authcxt = useContext(AuthContext);
 
 
   const SwitchHandler = () => {
@@ -42,6 +44,7 @@ const Signup = () => {
           headers:{'Content-Type':'appliaction/json'}  
       })
       const data = await response.json();
+      authcxt.login(data.idToken);
       navigator('/store', { replace: true });
       console.log(data);
       if (!data.ok)
@@ -80,7 +83,6 @@ const Signup = () => {
           
       }
   }
-
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <Card style={{ width: '480px',height: '250px'}}>

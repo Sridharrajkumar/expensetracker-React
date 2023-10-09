@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../ContxtStore/AuthContext';
 
 const ENav = () => {
+  const AuthCxt = useContext(AuthContext);
+
+
+
+  const LogOutHandler = () => {
+    AuthCxt.logOut();
+  }
+
   return (
       <>
       <Navbar expand='sm' bg='dark' variant='dark'>
@@ -18,7 +27,8 @@ const ENav = () => {
             <Nav.Link as={NavLink} to='/'><h5>Contact</h5></Nav.Link>
           </Nav>
           <div>
-            <Button as={NavLink} to='/Login'>LogIn</Button>
+            {!AuthCxt.islogged ? <Button as={NavLink} to='/Login'>LogIn</Button>:<Button onClick={LogOutHandler}>LogOut</Button>}
+            
           </div>
        </Container>
       </Navbar>

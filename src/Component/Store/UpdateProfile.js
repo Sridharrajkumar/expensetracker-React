@@ -1,16 +1,14 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState} from 'react'
 import classes from './UpdataProfile.module.css'
 import { Card, CardBody, CardTitle } from 'react-bootstrap';
+import { AuthContext } from '../../ContxtStore/AuthContext';
 
 const UpdateProfile = () => {
-    const [updating, setUpdating] = useState(true);
+
     const nameRef = useRef();
     const photoRef = useRef();
-
-
-    const SwitchHandler = () => {
-        setUpdating(!updating);
-    }
+    const authcxt = useContext(AuthContext);
+    const localToken = authcxt.token;
 
     const SubmitHandler = async(e) => {
         e.preventDefault();
@@ -20,6 +18,7 @@ const UpdateProfile = () => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                idToken: localToken,
                 displayName: name,
                 photoUrl:photo,
             })
@@ -27,14 +26,36 @@ const UpdateProfile = () => {
         const data = await response.json();
         console.log(data);
     }
+    const Fetchfun = async () => {
+        const response = await fetch(
+            "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDtBcO5-Tb9mSfQ7vWfK2dI_FwdDHvCDiw",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idToken: `${localToken}`
+                }),
+            }
+        );
+        const data = await response.json();
+        nameRef.current.value = data.users[0].displayName;
+        photoRef.current.value = data.users[0].photoUrl;
+        
+    }
+
+    useEffect(() => {
+        Fetchfun();
+        
+    },[])
   return (
     <>
           <div className={classes.update}>
               <h2>Welcome to Expense Tracker</h2>
-              <p><b>{updating ? 'Your Profile is Incomplete': 'Your Profile is 64% completed.A Complete profile has higher Chances of landing a Job '}</b><button className={classes.complete}  onClick={SwitchHandler}>complete now</button></p>
+              <p><b>'Your Profile is 64% completed.A Complete profile has higher Chances of landing a Job '</b></p>
           </div>
-          {!updating && 
-              <div className="d-flex flex-column justify-content-center align-items-center mt-3">
+            <div className="d-flex flex-column justify-content-center align-items-center mt-3">
                   <Card style={{ width: '540px',height: '280px'}}>
                       <div className={classes.top}>
                           <CardTitle>Contact Details</CardTitle>
@@ -53,9 +74,10 @@ const UpdateProfile = () => {
                       </CardBody>
                   </Card>
               </div>
-          }
+          
     </>
   )
 }
 
 export default UpdateProfile
+
