@@ -1,4 +1,4 @@
-import React, { useRef} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import { Button, Card, CardBody, FormControl, FormGroup, FormLabel,Form, CardTitle } from 'react-bootstrap'
 
 
@@ -7,6 +7,8 @@ const ExpenseForm = (props) => {
     const priceRef = useRef();
     const DescriptionRef = useRef();
     const categoryRef = useRef();
+  let expense = [];
+  const email = localStorage.getItem('user');
    
     const Submithandler = (e) => {
       e.preventDefault();
@@ -18,9 +20,10 @@ const ExpenseForm = (props) => {
             price: price,
             description: description,
             category: category
-        }
+      }
       props.addExpense(newExpense);
-    }
+  }
+
 
 
   return (
@@ -28,8 +31,8 @@ const ExpenseForm = (props) => {
       <div className='mt-2'>
         <Card>
             <CardTitle className='d-flex justify-content-center'><h4>Add Expenses</h4></CardTitle>
-          <CardBody>
-              <Form className='d-flex justify-content-around align-items-center' onSubmit={Submithandler}>
+          <CardBody >
+              <Form className='d-flex justify-content-around align-items-center'  onSubmit={Submithandler}>
               <FormGroup className='w-25'>
                   <FormLabel>Money Spended</FormLabel>
                   <FormControl type='number' className='form-control-lg' placeholder="Your Expense Amount" ref={priceRef} required />

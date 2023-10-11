@@ -34,6 +34,7 @@ const Signup = () => {
 
     if (isLogged)
     {
+      localStorage.setItem('user', email);
       const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDtBcO5-Tb9mSfQ7vWfK2dI_FwdDHvCDiw', {
           method: 'POST',
           body: JSON.stringify({
@@ -46,7 +47,6 @@ const Signup = () => {
       const data = await response.json();
       authcxt.login(data.idToken);
       navigator('/store', { replace: true });
-      console.log(data);
       if (!data.ok)
       {
         if (data.error)
@@ -69,7 +69,8 @@ const Signup = () => {
             }),
             headers:{'Content-Type':'application/json'}
           });
-          const data = await response.json();
+           const data = await response.json();
+      
           if (!data.ok)
           {
             if (data.error)

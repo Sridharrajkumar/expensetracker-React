@@ -20,7 +20,6 @@ const AuthContextProvider = (props) => {
 
     const [token, setToken] = useState(localToken);
     const loggedIn = (!!token);
-    console.log(loggedIn);
 
     const LogInhandler = (token) => {
         setToken(token);
@@ -30,9 +29,9 @@ const AuthContextProvider = (props) => {
 
     const LogoutHandler = () => {  
         setToken(null);
-        localStorage.removeItem("expenseToken");  //remove the item from storage
+        localStorage.removeItem("expenseToken"); 
         localStorage.removeItem("logInTime");
-        
+        localStorage.removeItem('user');
 
     }
 
@@ -48,10 +47,12 @@ const AuthContextProvider = (props) => {
                 setToken(null);
                 localStorage.removeItem('expenseToken')
                 localStorage.removeItem('logInTime')
+                localStorage.removeItem('user');
             }
         }
         
     }
+   
 
     useEffect(() => {
         checkLogIn();

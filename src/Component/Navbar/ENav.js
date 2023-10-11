@@ -18,7 +18,7 @@ const ENav = () => {
       <Navbar expand='sm' bg='dark' variant='dark'>
         <Container>
           <Navbar.Brand href='/'>
-              <h3>MyWebLink</h3>
+              <h3>Expense Tracker</h3>
           </Navbar.Brand>
           <Nav>
             <Nav.Link as={NavLink} to='/'><h5>Home</h5></Nav.Link>
