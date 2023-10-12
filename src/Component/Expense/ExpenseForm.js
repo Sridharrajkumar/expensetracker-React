@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react'
+import React, { useRef} from 'react'
 import { Button, Card, CardBody, FormControl, FormGroup, FormLabel,Form, CardTitle } from 'react-bootstrap'
 
 
@@ -7,8 +7,6 @@ const ExpenseForm = (props) => {
     const priceRef = useRef();
     const DescriptionRef = useRef();
     const categoryRef = useRef();
-  let expense = [];
-  const email = localStorage.getItem('user');
    
     const Submithandler = (e) => {
       e.preventDefault();
@@ -22,6 +20,8 @@ const ExpenseForm = (props) => {
             category: category
       }
       props.addExpense(newExpense);
+      priceRef.current.value = '';
+      DescriptionRef.current.value = ''; 
   }
 
 
@@ -43,7 +43,7 @@ const ExpenseForm = (props) => {
               </FormGroup>
               <FormGroup>
                 <FormLabel>Category</FormLabel>
-                <FormControl as='select' ref={categoryRef} className='form-control-lg'>
+                <FormControl as='select' ref={categoryRef}  className='form-control-lg'>
                   <option value='Food'>Food</option>
                   <option value='Petrol'>Petrol</option>
                   <option value='Movie'>Movie</option>

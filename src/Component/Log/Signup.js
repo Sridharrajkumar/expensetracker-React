@@ -70,7 +70,6 @@ const Signup = () => {
             headers:{'Content-Type':'application/json'}
           });
            const data = await response.json();
-      
           if (!data.ok)
           {
             if (data.error)

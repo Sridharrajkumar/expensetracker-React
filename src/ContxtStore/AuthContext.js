@@ -8,8 +8,7 @@ export const AuthContext = createContext({
     },
     logOut: () => {
         
-    }
-
+    },
 });
 
 
