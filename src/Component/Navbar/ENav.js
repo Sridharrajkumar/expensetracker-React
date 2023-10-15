@@ -1,16 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../../ContxtStore/AuthContext';
+import { NavLink} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthActions } from '../../ContxtStore/AuthReducer';
 
 const ENav = () => {
-  const AuthCxt = useContext(AuthContext);
+  const Authselector = useSelector(state => state.auth.isLogged);
+  const dispatch = useDispatch();
 
 
 
   const LogOutHandler = () => {
-    AuthCxt.logOut();
+    dispatch(AuthActions.logout())
   }
 
   return (
@@ -27,8 +29,8 @@ const ENav = () => {
             <Nav.Link as={NavLink} to='/'><h5>Contact</h5></Nav.Link>
           </Nav>
           <div className='d-flex gap-2'>
-            {!AuthCxt.islogged ? <Button as={NavLink} to='/Login'>LogIn</Button>:<Button onClick={LogOutHandler}>LogOut</Button>}
-            {AuthCxt.islogged && <Button as={NavLink} to='/verification'>verification</Button>}
+            {!Authselector ? <Button as={NavLink} to='/Login'>LogIn</Button>:<Button onClick={LogOutHandler}>LogOut</Button>}
+            {Authselector && <Button as={NavLink} to='/verification'>verification</Button>}
           </div>
        </Container>
       </Navbar>

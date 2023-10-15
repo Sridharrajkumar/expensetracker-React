@@ -1,10 +1,11 @@
 
 
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap/esm';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../ContxtStore/AuthContext';
+import { useDispatch} from 'react-redux';
+import { AuthActions } from '../../ContxtStore/AuthReducer';
 
 
 
@@ -15,7 +16,8 @@ const Signup = () => {
   const [err, seterr] = useState('');
   const [isLogged, setIsLoggedIn] = useState(true);
   const navigator = useNavigate();
-  const authcxt = useContext(AuthContext);
+  const dispatch = useDispatch();
+  
 
 
   const SwitchHandler = () => {
@@ -30,6 +32,7 @@ const Signup = () => {
     if (!isLogged)
     {
       conpass = conPassRef.current.value;
+      console.log(conpass)
     }
 
     if (isLogged)
@@ -45,7 +48,7 @@ const Signup = () => {
           headers:{'Content-Type':'appliaction/json'}  
       })
       const data = await response.json();
-      authcxt.login(data.idToken);
+      dispatch(AuthActions.login(data.idToken));
       navigator('/store', { replace: true });
       if (!data.ok)
       {
@@ -55,8 +58,6 @@ const Signup = () => {
         }         
       }
       
-      
-
     }
     else
     {

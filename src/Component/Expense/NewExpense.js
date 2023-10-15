@@ -1,18 +1,21 @@
 
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useState, useEffect } from 'react'
 import ExpenseForm from './ExpenseForm';
 import ExpenseItem from './ExpenseItem'
 import { Card, CardBody, CardTitle } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { ExpenseActions } from '../../ContxtStore/ExpenseReducer';
 
 const NewExpense = () => {
 
 
-    const [expenses, setexpenses] = useState([]);
+  const [expenses, setexpenses] = useState([]);
+   const savedExpense = useSelector(state => state.expenses.expenses);
     const email = localStorage.getItem('user');
+    const dispatch = useDispatch();
     let user;
-    let pro = [];
     if (email)
     {
         user = email.replace(/[@.]/g, '');
@@ -25,8 +28,9 @@ const NewExpense = () => {
             body: JSON.stringify(expense)
         })
         const data = await response.json();
-        console.log(data);
-    }
+      console.log(data);
+  }
+  console.log('saved',savedExpense);
 
     const EditExpense = async (id, editedExpense) => {
         
@@ -47,7 +51,8 @@ const NewExpense = () => {
         headers: { 'Content-Type': 'application/json' }
       })
       const data = await response.json();
-        console.log(data);
+      console.log(data);
+      let pro = [];
         for (let key in data)
           {
             pro.push({...data[key],id:key});
@@ -56,21 +61,23 @@ const NewExpense = () => {
         fetchFun();
     }
 
-    const fetchFun = async () => {
+    const fetchFun = useCallback( async () => {
         
         const response = await fetch(`https://expense-tracker-95099-default-rtdb.firebaseio.com/expense/${user}.json`);
-        const data = await response.json();
+      const data = await response.json();
+      let pro = [];
         for (let key in data)
         {
-          pro.push({...data[key],id:key});
-          }
+          pro.push({ ...data[key], id: key });
+          dispatch(ExpenseActions.AddExpense({ ...data[key], id: key }));
+        }
           console.log(pro);
           setexpenses(pro);
-      }
+      },[user,dispatch])
 
     useEffect(() =>{
         fetchFun();
-      },[])
+      },[fetchFun])
 
   return (
       <div>
@@ -92,7 +99,6 @@ const NewExpense = () => {
                             />
                             
                         </CardBody>
-                        
                     ))
                 }
               </ul>

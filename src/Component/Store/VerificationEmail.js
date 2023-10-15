@@ -11,7 +11,7 @@ const VerificationEmail = () => {
     const VericationHandler = async(e) => {
         e.preventDefault();
         const email = emailRef.current.value;
-        console.log('hello');
+        console.log(email);
 
         const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDtBcO5-Tb9mSfQ7vWfK2dI_FwdDHvCDiw', {
             method: 'POST',
@@ -56,3 +56,4 @@ const VerificationEmail = () => {
 }
 
 export default VerificationEmail
+

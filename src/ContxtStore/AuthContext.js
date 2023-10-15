@@ -1,74 +1,75 @@
-import { createContext, useState,useEffect } from "react";
+// import { createContext, useState,useEffect } from "react";
 
-export const AuthContext = createContext({
-    token: '',
-    islogged: false,
-    login: (token) => {
+// export const AuthContext = createContext({
+//     token: '',
+//     islogged: false,
+//     login: (token) => {
         
-    },
-    logOut: () => {
+//     },
+//     logOut: () => {
         
-    },
-});
+//     },
+// });
 
 
 
-const AuthContextProvider = (props) => {
+// const AuthContextProvider = (props) => {
 
-    const localToken = localStorage.getItem('expenseToken');
+//     const localToken = localStorage.getItem('expenseToken');
 
-    const [token, setToken] = useState(localToken);
-    const loggedIn = (!!token);
+//     const [token, setToken] = useState(localToken);
+//     const loggedIn = (!!token);
 
-    const LogInhandler = (token) => {
-        setToken(token);
-        localStorage.setItem('expenseToken', token);
-        localStorage.setItem('logInTime', Date.now())
-    }
+//     const LogInhandler = (token) => {
+//         setToken(token);
+//         localStorage.setItem('expenseToken', token);
+//         localStorage.setItem('logInTime', Date.now())
+//     }
 
-    const LogoutHandler = () => {  
-        setToken(null);
-        localStorage.removeItem("expenseToken"); 
-        localStorage.removeItem("logInTime");
-        localStorage.removeItem('user');
+//     const LogoutHandler = () => {  
+//         setToken(null);
+//         localStorage.removeItem("expenseToken"); 
+//         localStorage.removeItem("logInTime");
+//         localStorage.removeItem('user');
 
-    }
+//     }
 
-    const checkLogIn = () => {
+    // const checkLogIn = () => {
 
-        const localTime = localStorage.getItem('logInTime')
+    //     const localTime = localStorage.getItem('logInTime')
         
-        if (localTime && localToken)
-        {
-            const expireTime = Number(localTime) + 5 * 60 * 1000;
-            if (Date.now() >= expireTime)
-            {
-                setToken(null);
-                localStorage.removeItem('expenseToken')
-                localStorage.removeItem('logInTime')
-                localStorage.removeItem('user');
-            }
-        }
+    //     if (localTime && localToken)
+    //     {
+    //         const expireTime = Number(localTime) + 5 * 60 * 1000;
+    //         if (Date.now() >= expireTime)
+    //         {
+    //             setToken(null);
+    //             localStorage.removeItem('expenseToken')
+    //             localStorage.removeItem('logInTime')
+    //             localStorage.removeItem('user');
+    //         }
+    //     }
         
-    }
+    // }
    
 
-    useEffect(() => {
-        checkLogIn();
-    })
+//     useEffect(() => {
+//         checkLogIn();
+//     })
 
-    const Auth = {
-        token: token,
-        islogged: loggedIn,
-        login: LogInhandler,
-        logOut:LogoutHandler
+//     const Auth = {
+//         token: token,
+//         islogged: loggedIn,
+//         login: LogInhandler,
+//         logOut:LogoutHandler
         
-    }
-    return (
-        <AuthContext.Provider value={Auth}>
-            {props.children}
-        </AuthContext.Provider>
-    );
-}
+//     }
+//     return (
+//         <AuthContext.Provider value={Auth}>
+//             {props.children}
+//         </AuthContext.Provider>
+//     );
+// }
 
-export default AuthContextProvider
+// export default AuthContextProvider
+
