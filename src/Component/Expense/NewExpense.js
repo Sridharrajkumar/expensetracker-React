@@ -9,10 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ExpenseActions } from '../../ContxtStore/ExpenseReducer';
 
 const NewExpense = () => {
-
-
   const [expenses, setexpenses] = useState([]);
-   const savedExpense = useSelector(state => state.expenses.expenses);
+  const savedExpense = useSelector(state => state.expenses.expenses);
+
     const email = localStorage.getItem('user');
     const dispatch = useDispatch();
     let user;
@@ -30,7 +29,7 @@ const NewExpense = () => {
         const data = await response.json();
       console.log(data);
   }
-  console.log('saved',savedExpense);
+     console.log('saved',savedExpense);
 
     const EditExpense = async (id, editedExpense) => {
         
@@ -41,7 +40,7 @@ const NewExpense = () => {
         });
         const data = response.json();
         console.log(data);
-        fetchFun();
+        // fetchFun();
       };
 
     const DeleteExpense = async(id) => {
@@ -51,33 +50,31 @@ const NewExpense = () => {
         headers: { 'Content-Type': 'application/json' }
       })
       const data = await response.json();
-      console.log(data);
-      let pro = [];
-        for (let key in data)
-          {
-            pro.push({...data[key],id:key});
-            }
-            console.log(pro);
-        fetchFun();
+        // fetchFun();
     }
 
-    const fetchFun = useCallback( async () => {
-        
+    const fetchFun =  async () => {
         const response = await fetch(`https://expense-tracker-95099-default-rtdb.firebaseio.com/expense/${user}.json`);
-      const data = await response.json();
-      let pro = [];
+         const data = await response.json();
+         let pro = [];
         for (let key in data)
         {
           pro.push({ ...data[key], id: key });
-          dispatch(ExpenseActions.AddExpense({ ...data[key], id: key }));
+          dispatch(ExpenseActions.AddExpense());
+          
         }
-          console.log(pro);
+      console.log(pro);
+         
           setexpenses(pro);
-      },[user,dispatch])
+      }
 
-    useEffect(() =>{
-        fetchFun();
-      },[fetchFun])
+      useEffect(() => {
+        if (email)
+        {
+          fetchFun();
+        }
+      }, [email])
+  
 
   return (
       <div>
@@ -86,7 +83,7 @@ const NewExpense = () => {
               <CardTitle className='d-flex justify-content-center mt-2'>Expenses</CardTitle>
             <ul className='m-4'>
                 {
-                    expenses.map((expense) =>(
+                    savedExpense.map((expense) =>(
                         <CardBody>
                             <ExpenseItem
                                 onEditExpense={EditExpense}
@@ -102,9 +99,7 @@ const NewExpense = () => {
                     ))
                 }
               </ul>
-              
           </Card>
-          
     </div>
   )
 }
