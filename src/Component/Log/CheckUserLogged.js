@@ -10,7 +10,7 @@ const CheckUserLogged = () => {
             
             if (localTime && localToken)
             {
-                const expireTime = Number(localTime) + 5 * 60 * 1000;
+                const expireTime = Number(localTime) + 30 * 60 * 1000;
                 if (Date.now() >= expireTime)
                 {
                     dispatch(AuthActions.logout());

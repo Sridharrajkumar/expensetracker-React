@@ -21,10 +21,8 @@ const ExpenseForm = (props) => {
       }
       props.addExpense(newExpense);
       priceRef.current.value = '';
-      DescriptionRef.current.value = ''; 
+      DescriptionRef.current.value = '';
   }
-
-
 
   return (
     <>
