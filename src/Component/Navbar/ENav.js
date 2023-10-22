@@ -9,6 +9,7 @@ import { ModeAction } from '../../ContxtStore/ModeReducer';
 
 const ENav = () => {
   const Authselector = useSelector(state => state.auth.isLogged);
+  console.log(Authselector);
   const dispatch = useDispatch();
   const TotalExpense = useSelector(state => state.expenses.totalExpenses);
   const PremiumAmount = 10000;

@@ -17,7 +17,6 @@ function App() {
 
   const authSelector = useSelector(state => state.auth.isLogged);
   const ModeSelector = useSelector(state => state.Mode.isLight);
-  console.log(ModeSelector);
 
   return (
     <div className={ModeSelector ? 'light-mode' : 'dark-mode'}>
