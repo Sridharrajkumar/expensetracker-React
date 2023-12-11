@@ -113,7 +113,7 @@ const NewExpense = () => {
                                 description={expense.description}
                                 category={expense.category}
                             />
-                            
+                    
                         </CardBody>
                     ))
                 }

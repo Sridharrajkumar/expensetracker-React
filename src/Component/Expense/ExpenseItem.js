@@ -26,7 +26,7 @@ const ExpenseItem = (props) => {
           onEditExpense={handleSaveEdit}
         />
       ) : (
-        <li key={props.id} className='d-flex justify-content-around align-item-center' style={{ borderBottom: '1px solid black' }}>
+        props.id && (<li key={props.id} className='d-flex justify-content-around align-item-center' style={{ borderBottom: '1px solid black' }}>
           <div className='d-flex gap-3 align-item-center mb-2'>
             <h5>{props.category}</h5>
             <h5>{props.description}</h5>
@@ -40,7 +40,7 @@ const ExpenseItem = (props) => {
               Delete
             </Button>
           </div>
-        </li>
+        </li>)
       )}
     </>
   );

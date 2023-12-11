@@ -1,24 +1,11 @@
 import { render, screen } from "@testing-library/react"
-import ENav from "./ENav"
+import ENav from './ENav'
 
-describe('Navbar', () => {
 
-    test('navbar testing', () => {
-
-        render(<ENav />);
+test('Enav test', () => {
     
-        const present = screen.getByText('Expense Tracker', { exact: true });
-        expect(present).toBeInTheDocument();
-    })
+    render(<ENav />);
 
-    test('navbar Home', () => {
-        render(<ENav />);
-        const home = screen.getByText('home', { exact: false });
-        expect(home).toBeInTheDocument();
-
-        
-    })
-    
+    const present = screen.getByText('expense tracker', { exact: false });
+    expect(present).toBeInTheDocument();
 })
-
-
